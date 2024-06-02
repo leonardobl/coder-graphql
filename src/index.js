@@ -21,6 +21,7 @@ const typeDefs = gql`
     horaAtual: Date
     getUsuario: User
     produtoEmDestaque: Produto
+    geradorNumerosMega: [Int!]!
   }
 `;
 
@@ -57,6 +58,19 @@ const resolvers = {
         preco: 10.0,
         desconto: 0.05,
       };
+    },
+    geradorNumerosMega() {
+      const values = Array(6).fill(0);
+
+      for (let i = 0; i < values.length; i++) {
+        let newValue = 0;
+        while (values.includes(newValue)) {
+          newValue = parseInt(Math.random() * 61);
+        }
+        values[i] = newValue;
+      }
+
+      return values.sort((a, b) => a - b);
     },
   },
 };
