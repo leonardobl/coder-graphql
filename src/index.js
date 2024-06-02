@@ -1,64 +1,22 @@
 const { ApolloServer, gql } = require("apollo-server");
 
 const typeDefs = gql`
-  scalar Date
-
-  type Produto {
-    nome: String!
-    preco: Float!
-    desconto: Float
-    precoComDesconto: Float
-  }
-
   type User {
+    id: Int
     name: String
-    id: ID
-    salario: Float
+    username: String
+    email: String
   }
 
   type Query {
-    ola: String
-    horaAtual: Date
-    getUsuario: User
-    produtoEmDestaque: Produto
+    getUsers: [User]!
+    getUser(id: ID): User
     geradorNumerosMega: [Int!]!
   }
 `;
 
 const resolvers = {
-  User: {
-    salario(User) {
-      return User.salario_real * 2;
-    },
-  },
-
-  Produto: {
-    precoComDesconto(prod) {
-      return prod.preco - prod.preco * prod.desconto;
-    },
-  },
-
   Query: {
-    ola() {
-      return "Leonardo Lima";
-    },
-    horaAtual() {
-      return new Date();
-    },
-    getUsuario() {
-      return {
-        name: "Leonardo Lima",
-        id: 123,
-        salario_real: 123.321,
-      };
-    },
-    produtoEmDestaque() {
-      return {
-        nome: "Leite",
-        preco: 10.0,
-        desconto: 0.05,
-      };
-    },
     geradorNumerosMega() {
       const values = Array(6).fill(0);
 
@@ -71,6 +29,20 @@ const resolvers = {
       }
 
       return values.sort((a, b) => a - b);
+    },
+
+    async getUsers() {
+      const data = await fetch(
+        "https://jsonplaceholder.typicode.com/users"
+      ).then((response) => response.json());
+      return data;
+    },
+
+    async getUser(_, args) {
+      const data = await fetch(
+        `https://jsonplaceholder.typicode.com/users/${args.id}`
+      ).then((response) => response.json());
+      return data;
     },
   },
 };
