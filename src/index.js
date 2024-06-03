@@ -8,10 +8,20 @@ const typeDefs = gql`
     email: String
   }
 
+  type Postagem {
+    postId: Int
+    id: Int
+    name: String
+    email: String
+    body: String
+  }
+
   type Query {
     getUsers: [User]!
     getUser(id: ID): User
     geradorNumerosMega: [Int!]!
+    getPostagens: [Postagem]
+    getPostagem(postId: Int): [Postagem]
   }
 `;
 
@@ -43,6 +53,22 @@ const resolvers = {
         `https://jsonplaceholder.typicode.com/users/${args.id}`
       ).then((response) => response.json());
       return data;
+    },
+
+    async getPostagens() {
+      const data = await fetch(
+        "https://jsonplaceholder.typicode.com/comments"
+      ).then((response) => response.json());
+
+      return data;
+    },
+
+    async getPostagem(_, { postId }) {
+      const data = await fetch(
+        "https://jsonplaceholder.typicode.com/comments"
+      ).then((response) => response.json());
+
+      return data.filter((i) => i.postId == postId);
     },
   },
 };
