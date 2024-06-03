@@ -1,29 +1,5 @@
 const { ApolloServer, gql } = require("apollo-server");
-
-const typeDefs = gql`
-  type User {
-    id: Int
-    name: String
-    username: String
-    email: String
-  }
-
-  type Postagem {
-    postId: Int
-    id: Int
-    name: String
-    email: String
-    body: String
-  }
-
-  type Query {
-    getUsers: [User]!
-    getUser(id: ID): User
-    geradorNumerosMega: [Int!]!
-    getPostagens: [Postagem]
-    getPostagem(postId: Int): [Postagem]
-  }
-`;
+const { importSchema } = require("graphql-import");
 
 const resolvers = {
   Query: {
@@ -74,7 +50,7 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
-  typeDefs,
+  typeDefs: importSchema(require.resolve("./schema/index.graphql")),
   resolvers,
 });
 

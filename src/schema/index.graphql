@@ -1,0 +1,10 @@
+#import User from './user.graphql";
+#import Postagem from './postagem.graphql';
+
+type Query {
+  getUsers: [User]!
+  getUser(id: ID): User
+  geradorNumerosMega: [Int!]!
+  getPostagens: [Postagem]
+  getPostagem(postId: Int): [Postagem]
+}
