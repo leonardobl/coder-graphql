@@ -1,5 +1,5 @@
-#import User from './user.graphql";
-#import Postagem from './postagem.graphql';
+#import User from './User.graphql";
+#import Postagem from './Postagem.graphql';
 
 type Query {
   getUsers: [User]!
