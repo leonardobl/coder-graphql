@@ -14,20 +14,4 @@ module.exports = {
 
     return data;
   },
-
-  async postUser(_, user) {
-    try {
-      const data = await fetch(`https://api.escuelajs.co/api/v1/users/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      }).then((res) => res.json());
-
-      return data;
-    } catch (error) {
-      return error;
-    }
-  },
 };
