@@ -1,8 +1,4 @@
 type Mutation {
-  postUser(
-    avatar: String!
-    email: String!
-    name: String!
-    password: String!
-  ): User
+  postUser(user: InputPostUser): User
+  putUser(user: InputPutUser): User
 }

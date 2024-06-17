@@ -6,3 +6,16 @@ type User {
   role: String
   avatar: String
 }
+
+input InputPostUser {
+  email: String!
+  password: String!
+  name: String!
+  avatar: String!
+}
+
+input InputPutUser {
+  email: String!
+  id: Int!
+  name: String!
+}

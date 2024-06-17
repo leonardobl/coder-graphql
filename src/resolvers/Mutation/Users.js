@@ -1,5 +1,5 @@
 module.exports = {
-  async postUser(_, user) {
+  async postUser(_, { user }) {
     const dataEmail = await fetch(
       `https://api.escuelajs.co/api/v1/users/is-available`,
       {
@@ -21,6 +21,28 @@ module.exports = {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .catch((error) => {
+        throw new Error(error);
+      });
+
+    if (data?.message) {
+      throw new Error(data?.message);
+    }
+
+    return data;
+  },
+
+  async putUser(_, { user }) {
+    const { id, ...rest } = user;
+
+    const data = await fetch(`https://api.escuelajs.co/api/v1/users/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(rest),
     })
       .then((res) => res.json())
       .catch((error) => {
