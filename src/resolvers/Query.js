@@ -1,45 +1,33 @@
 module.exports = {
-  geradorNumerosMega() {
-    const values = Array(6).fill(0);
-
-    for (let i = 0; i < values.length; i++) {
-      let newValue = 0;
-      while (values.includes(newValue)) {
-        newValue = parseInt(Math.random() * 61);
-      }
-      values[i] = newValue;
-    }
-
-    return values.sort((a, b) => a - b);
-  },
-
   async getUsers() {
-    const data = await fetch("https://jsonplaceholder.typicode.com/users").then(
-      (response) => response.json()
+    const data = await fetch("https://api.escuelajs.co/api/v1/users").then(
+      (res) => res.json()
     );
-    return data;
-  },
-
-  async getUser(_, args) {
-    const data = await fetch(
-      `https://jsonplaceholder.typicode.com/users/${args.id}`
-    ).then((response) => response.json());
-    return data;
-  },
-
-  async getPostagens() {
-    const data = await fetch(
-      "https://jsonplaceholder.typicode.com/comments"
-    ).then((response) => response.json());
 
     return data;
   },
 
-  async getPostagem(_, { postId }) {
+  async getUser(_, { id }) {
     const data = await fetch(
-      "https://jsonplaceholder.typicode.com/comments"
-    ).then((response) => response.json());
+      `https://api.escuelajs.co/api/v1/users/${id}`
+    ).then((res) => res.json());
 
-    return data.filter((i) => i.postId == postId);
+    return data;
+  },
+
+  async postUser(_, user) {
+    try {
+      const data = await fetch(`https://api.escuelajs.co/api/v1/users/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }).then((res) => res.json());
+
+      return data;
+    } catch (error) {
+      return error;
+    }
   },
 };
