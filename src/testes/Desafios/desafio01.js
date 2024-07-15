@@ -5,7 +5,14 @@ async function salvarUsuario(nome, email, senha) {
     throw new Error("Todos os campos são obrigatorios");
   }
 
-  const result = await db.select("*").from("usuarios").where({ email });
+  const result = await db
+    .select("*")
+    .from("usuarios")
+    .where({ email })
+    .returning("*")
+    .first();
+
+  console.log("Result", result);
 
   if (result) {
     return await db
@@ -27,6 +34,11 @@ async function salvarUsuario(nome, email, senha) {
     .finally(() => db.destroy());
 }
 
-const usuario = await salvarUsuario();
-
-console.log(usuario);
+(async () => {
+  const usuario = await salvarUsuario(
+    "Leonardo B Lima",
+    "leonardo@teste.com.br",
+    "123"
+  );
+  console.log(usuario);
+})();
