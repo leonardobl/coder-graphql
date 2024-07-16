@@ -1,4 +1,0 @@
-type Mutation {
-  postUser(user: InputPostUser): User
-  putUser(user: InputPutUser): User
-}

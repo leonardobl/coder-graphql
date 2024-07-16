@@ -1,5 +1,5 @@
-const Users = require("./Users");
+const Perfis = require("./Perfis/index");
 
 module.exports = {
-  ...Users,
+  ...Perfis,
 };
