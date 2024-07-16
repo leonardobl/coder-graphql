@@ -4,7 +4,12 @@ type Perfil {
   rotulo: String!
 }
 
-input PerfilInput {
+input InputPerfil {
   nome: String!
   rotulo: String!
+}
+
+input InputPerfilFilter {
+  nome: String
+  id: Int
 }

@@ -1,4 +1,5 @@
 type Query {
-  perfis: () => [Perfil]
-  addPerfil: (data: PerfilInput) => Perfil
+  perfis: [Perfil]
+  addPerfil(data: InputPerfil): Perfil
+  perfilFilter(data: InputPerfilFilter): Perfil
 }
