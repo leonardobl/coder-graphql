@@ -3,3 +3,8 @@ type Perfil {
   nome: String!
   rotulo: String!
 }
+
+input PerfilInput {
+  nome: String!
+  rotulo: String!
+}
